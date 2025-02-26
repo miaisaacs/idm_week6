@@ -82,13 +82,13 @@ times=seq(1,140,by=1);
 
 simNoCtrl=ode(y=state,times=times,func=EBOLA,parms=parmsNoCtrl);
 
-inci1=simNoCtrl[seq(7,nrow(simNoCtrl),by=7),'cumInci']
+inci1=simNoCtrl[seq(7,nrow(simNoCtrl),by=7),'cumInci']-c(0,simNoCtrl[seq(7,nrow(simNoCtrl)-7,by=7),'cumInci'])
 
 par(mfrow=c(1,1), mar=c(3,3,1,1),mgp=c(1.6,.5,0),cex=1.1)
 noctrlbar=barplot(obs,col='white',xlab='Time from onset (week)',
                ylab='Weekly incidence',ylim=c(0,140))
 axis(1,at=noctrlbar,lab=1:20)
-lines(x=noctrlbar, y=inci1,lwd=2) # use 'x=df.bar' to match with weeks
+lines(x=noctrlbar, y=inci1,lwd=2) 
 legend('topleft',c('Observed','Simulated: with intervention'),
        lty=c(NA,1),pch=c(0,NA),col=c('black','black'),cex=.8,bty='n')
 
